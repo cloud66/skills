@@ -18,3 +18,7 @@ When deploying a Cloud 66 application, always do the following:
 7. If the deployment has been successfully enqueued, tell the user that the logs are available by visiting `<BASE_URL>/operations/<DEPLOYMENT_ID>` - where `DEPLOYMENT_ID` is the ID of the deployment that was just enqueued.
 8. If the deployment has been successfully enqueued, continuously poll the `get_operation` tool with exponential backoff and full jitter (minimum 10 seconds, maximum 60 seconds, full jitter means once you determine the current backoff value, choose a random value between 0 and that value) and wait until the deployment is done.
 9. If the deployment was successful, there is nothing else to be done. If it has failed, call the `get_operation_logs` tool and analyze the logs to determine what the issue is. Summarize the issue to the user and offer helpful suggestions on how they could fix it.
+10. Follow the steps in the `Calling the tool` section.
+
+# Calling the tool
+Once you have all the parameters, you can call the `create_csv3_application` tool. It is *extremely important* that this tool has nested parameters, which MUST be passed as structured JSON objects/arrays, NOT as JSON-encoded strings.

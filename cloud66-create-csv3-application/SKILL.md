@@ -22,12 +22,14 @@ These are the actual steps for creating an application, which is done using the 
 
 # Application creation via NGINX image
 1. Populate the `services` field with a single image-based service called `web` running the `nginx:latest` image and exposing its internal port `80` externally to HTTP 80 and HTTPS 443. No other fields are required.
+2. Follow the steps in the `Calling the tool` section.
 
 # Application creation via wizard
 1. Guide the user to populate the `services` field - ask what kind of service they wish to deploy (backed by image, or git repository), what the values should be, what ports should be exposed, what the command to run the application in the container should be, e.t.c.
 2. Ask the user if these services need any additional environment variables - populate the `environment_variables` field based on their answer.
 3. Ask the user if these services need any databases, and if so, ask them if they want to use existing databases (seen via the `list_cluster_databases` tool), or help them populate the fields for creating a new database.
 4. Ask if there are any database migration commands that need to be run for any services (e.g. `bundle exec rails db:migrate` for Rails applications), in which case the `migration_command` and `migration_service_name` fields can be populated.
+5. Follow the steps in the `Calling the tool` section.
 
 # Application creation via source code
 1. We will be creating a single service based on the source code.
@@ -39,3 +41,7 @@ These are the actual steps for creating an application, which is done using the 
 7. Guide the user through creating a new MySQL/Redis/PostgreSQL database or choose an existing one via the `list_databases` tool - if one was deemed necessary based on the analysis.
 8. Ask if there are any database migration commands that need to be run for the service (e.g. `bundle exec rails db:migrate` for Rails applications), in which case the `migration_command` and `migration_service_name` fields can be populated.
 9. Suggest some reasonable environment variables for this codebase to the user, and ask them what other ones they would like to add - this is for the `environment_variables` field.
+10. Follow the steps in the `Calling the tool` section.
+
+# Calling the tool
+Once you have all the parameters, you can call the `create_csv3_application` tool. It is *extremely important* that this tool has nested parameters, which MUST be passed as structured JSON objects/arrays, NOT as JSON-encoded strings.

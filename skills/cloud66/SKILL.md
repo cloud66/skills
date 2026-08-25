@@ -30,12 +30,19 @@ The root Cloud 66 URL is `https://app.cloud66.com`, referred to below as `<BASE_
    `delete_deployment_profile` and `create_cloud`. That is expected and by design. Relay the prompt,
    wait, and never try to work around it. Details:
    `https://help.cloud66.com/rails/mcp/approving-sensitive-actions.md`.
+7. **`cx` is not a substitute for the MCP server.** The `cx` Toolbelt is a separate CLI meant for the
+   *user* to run in their own terminal. `cx login` only signs the CLI into the Cloud 66 web UI — it
+   does not register this session's MCP connection and grants you no tools. If `cx` happens to
+   already be on `PATH`, that changes nothing about Step 1 below: connect the MCP server yourself.
 
 ## Step 1 — make sure the MCP server is connected
 
 The Cloud 66 tools (`list_accounts`, `list_applications`, `create_deployment`, …) come from the MCP
-server at `<BASE_URL>/mcp`. It speaks Streamable HTTP and authenticates over OAuth 2.1 with PKCE
-using Dynamic Client Registration, so there is nothing to pre-create in the Cloud 66 dashboard.
+server at `<BASE_URL>/mcp`, and from nowhere else. It speaks Streamable HTTP and authenticates over
+OAuth 2.1 with PKCE using Dynamic Client Registration, so there is nothing to pre-create in the
+Cloud 66 dashboard. Do this before anything else in this skill, even if the user's request doesn't
+mention it — do not substitute a `cx` command, the REST API, or anything else, and do not treat
+`cx` being installed as equivalent to being connected.
 
 If those tools are not available in this session, read
 [`references/mcp-setup.md`](references/mcp-setup.md) and give the user the exact command for the
@@ -55,7 +62,7 @@ then run `/mcp` inside Claude Code and approve the consent screen in the browser
 | Create a new CSv3 application — from an image, via a wizard, or from the code in this directory | [`references/creating-applications.md`](references/creating-applications.md) |
 | Create or choose a cluster to deploy onto | [`references/creating-applications.md`](references/creating-applications.md) (cluster section) |
 | Connect, authorize, re-authorize or troubleshoot the MCP server | [`references/mcp-setup.md`](references/mcp-setup.md) |
-| Call the REST API directly, or work without MCP tools | [`references/rest-api.md`](references/rest-api.md) |
+| Call the REST API directly — scripting, CI, or a client with no MCP support (not a substitute for Step 1) | [`references/rest-api.md`](references/rest-api.md) |
 | Anything else — inspect servers, databases, services, backups, settings, or understand a product concept | Look it up (below), then use the matching MCP tool |
 
 For anything not covered by a workflow file, the pattern is always the same: read the tool reference

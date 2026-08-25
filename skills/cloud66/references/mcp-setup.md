@@ -23,9 +23,14 @@ Give the user the command for the agent they are *actually* running:
 
 | Client | How to add it |
 | --- | --- |
-| Claude Code | `claude mcp add --transport http cloud66 https://app.cloud66.com/mcp`, then run `/mcp` and authenticate |
+| Claude Code | `claude mcp add --transport http cloud66 https://app.cloud66.com/mcp`, then **restart the session** (exit, run `claude` again), then run `/mcp` and authenticate |
 | Claude Desktop | Settings → Connectors → Add custom connector → name `Cloud 66`, URL `https://app.cloud66.com/mcp` → Add → Connect |
 | Any other MCP client | Add a remote/HTTP MCP server with the URL `https://app.cloud66.com/mcp` |
+
+Claude Code loads its MCP server list once at startup, so `claude mcp add` has no effect on the
+session that ran it — `/mcp` in that same session will look unchanged, with no Cloud 66 entry, which
+reads as a failure even though the add succeeded. Always tell the user to exit and restart before
+checking `/mcp`.
 
 ## Authorizing
 

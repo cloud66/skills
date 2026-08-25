@@ -52,7 +52,11 @@ agent they are actually running. The short version for Claude Code:
 claude mcp add --transport http cloud66 https://app.cloud66.com/mcp
 ```
 
-then run `/mcp` inside Claude Code and approve the consent screen in the browser.
+A server added this way is invisible to the *current* session — `/mcp` only lists servers that were
+loaded at startup. Tell the user to exit and restart Claude Code now; running `/mcp` before
+restarting will show the same tool list as before, with no Cloud 66 entry, which looks like the add
+failed even though it didn't. Once they're back in a new session, have them run `/mcp` and approve
+the consent screen in the browser.
 
 ## Step 2 — find the workflow
 

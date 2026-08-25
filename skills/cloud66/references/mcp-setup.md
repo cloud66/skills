@@ -23,9 +23,19 @@ Give the user the command for the agent they are *actually* running:
 
 | Client | How to add it |
 | --- | --- |
-| Claude Code | `claude mcp add --transport http cloud66 https://app.cloud66.com/mcp`, then run `/mcp` and authenticate |
+| Claude Code | Run `claude mcp add --transport http cloud66 https://app.cloud66.com/mcp` yourself, then `claude mcp login cloud66` yourself — this opens the user's browser and completes authorization without them touching `/mcp` at all. Then tell them to **restart the session** (exit, run `claude` again). |
 | Claude Desktop | Settings → Connectors → Add custom connector → name `Cloud 66`, URL `https://app.cloud66.com/mcp` → Add → Connect |
 | Any other MCP client | Add a remote/HTTP MCP server with the URL `https://app.cloud66.com/mcp` |
+
+Claude Code loads its MCP server list once at startup, so neither `claude mcp add` nor `claude mcp
+login` has any effect on the session that ran them — the tools won't show up here regardless of what
+you just did, and that is expected, not a failure. Always tell the user to exit and restart before
+expecting Cloud 66 tools to be available; by the time they're back, authorization is already done, so
+there's nothing further to click.
+
+`claude mcp login <name>` needs a foreground shell to run in (it waits on the browser round-trip) but
+not an already-running `claude` session — run it as an ordinary command. If no browser is reachable
+it falls back to printing a URL and waiting for the user to paste the redirect back.
 
 ## Authorizing
 

@@ -1,8 +1,11 @@
 # Using the Cloud 66 REST API directly
 
-The MCP server is the preferred way to work with Cloud 66. Reach for the REST API only when the MCP
-server cannot be used — the user is scripting something, integrating from CI, or working in a client
-with no MCP support — or when they explicitly ask about the API.
+The MCP server is the preferred way to work with Cloud 66, and is what gives you any Cloud 66 tools
+in this session at all — see [Step 1](../SKILL.md#step-1--make-sure-the-mcp-server-is-connected) in
+the main skill file. A session that simply hasn't connected the MCP server yet is not a reason to
+fall back here — connect it first. Reach for the REST API only when the MCP server genuinely cannot
+be used — the user is scripting something, integrating from CI, or working in a client with no MCP
+support — or when they explicitly ask about the API.
 
 ## What to read
 
@@ -41,6 +44,10 @@ Markdown by appending `.md`.
 
 ## The Toolbelt
 
-For command-line work there is also the `cx` Toolbelt. Its documentation lives on the help site:
+For command-line work there is also the `cx` Toolbelt — a separate CLI for the **user** to run
+directly in their own terminal, not something you should invoke on their behalf. `cx login` only
+signs the CLI itself into the Cloud 66 web UI; it does not register this session's MCP connection
+and grants you no tools. If you find `cx` already installed, that is not a substitute for Step 1 —
+connect the MCP server as normal. Its documentation lives on the help site:
 `https://help.cloud66.com/rails/toolbelt/using-cloud66-toolbelt.md` and
 `https://help.cloud66.com/rails/toolbelt/commands.md`.

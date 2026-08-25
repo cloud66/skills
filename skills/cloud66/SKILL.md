@@ -50,13 +50,18 @@ agent they are actually running. The short version for Claude Code:
 
 ```bash
 claude mcp add --transport http cloud66 https://app.cloud66.com/mcp
+claude mcp login cloud66
 ```
 
-A server added this way is invisible to the *current* session — `/mcp` only lists servers that were
-loaded at startup. Tell the user to exit and restart Claude Code now; running `/mcp` before
-restarting will show the same tool list as before, with no Cloud 66 entry, which looks like the add
-failed even though it didn't. Once they're back in a new session, have them run `/mcp` and approve
-the consent screen in the browser.
+Run both yourself — `login` opens the user's browser for the OAuth consent screen and stores the
+token once they approve, so there is nothing for the user to click inside Claude Code itself. Tell
+them the browser is about to open and to approve access there. This can take a while (it's waiting on
+a human), so don't treat a long-running `login` call as stuck.
+
+Either way, the tools are still invisible to the *current* session — Claude Code only loads its MCP
+list at startup, so `add` and `login` have no effect on the session that ran them. Tell the user to
+exit and restart Claude Code now. Once they're back, the Cloud 66 tools are already authorized and
+ready to use — no `/mcp` menu required.
 
 ## Step 2 — find the workflow
 

@@ -25,7 +25,9 @@ The root Cloud 66 URL is `https://app.cloud66.com`, referred to below as `<BASE_
    browser OAuth flow is the only supported way to grant access.
 5. **Long-running tools are asynchronous.** They return an operation handle; poll `get_operation`
    until it finishes. Use exponential backoff with full jitter — minimum 10s, maximum 60s: once you
-   have the current backoff value, sleep a random duration between 0 and that value.
+   have the current backoff value, sleep a random duration between 0 and that value. Before you
+   start polling, tell the user they can follow the operation and its logs at
+   `<BASE_URL>/operations/<operation_id>`, using the `operation_id` the tool returned.
 6. **Some tools pause for browser confirmation** — including `delete_application`,
    `delete_deployment_profile` and `create_cloud`. That is expected and by design. Relay the prompt,
    wait, and never try to work around it. Details:
